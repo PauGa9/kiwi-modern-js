@@ -1,9 +1,17 @@
 export default {
-  getFlights() {
-    return [
-      {from: 'LON', to: 'PARIS', date: '11/02/2018'},
-      {from: 'LON', to: 'PARIS', date: '21/05/2018'},
-      {from: 'LON', to: 'PARIS', date: '03/06/2018'}
-    ];
+  getFlights(flightData) {
+    let date = new Date(flightData.date)
+    date = `${date.getDate()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+    const query = `flyFrom=${flightData.from}&to=${flightData.to}&dateFrom=${date}&dateTo=${date}`;
+    const url = 'https://api.skypicker.com/flights?' +  query;
+    const apiResults = fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then(jsonResponse => {
+        return jsonResponse.data;
+      });
+
+    return apiResults;
   }
 }
