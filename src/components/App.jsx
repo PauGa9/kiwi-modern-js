@@ -13,10 +13,12 @@ class App extends React.Component {
   }
 
   searchFlights(flightData) {
-    const results = APIclient.getFlights(flightData);
-    this.setState({
-      flights: results
-    })
+    APIclient.getFlights(flightData)
+      .then(results => {
+        this.setState({
+          flights: results
+        });
+      });
   }
 
   render() {
