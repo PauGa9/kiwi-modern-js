@@ -1,4 +1,5 @@
 import React from 'react';
+import DropdownInput from './DropdownInput.jsx';
 
 class Form extends React.Component {
   constructor(props) {
@@ -10,8 +11,8 @@ class Form extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const flightData = {
-      from: this.from.value,
-      to: this.to.value,
+      from: this.state.from,
+      to: this.state.to,
       date: this.date.value
     };
     this.props.handleSearchFlights(flightData);
@@ -20,17 +21,9 @@ class Form extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          ref={(input) => this.from = input}
-        />
-        <input
-          type="text"
-          ref={(input) => this.to = input}
-        />
-        <input
-          type="date"
-          ref={(input) => this.date = input}
+        <DropdownInput onChange={(value) => this.setState({from: value})}/>
+        <DropdownInput onChange={(value) => this.setState({to: value})}/>
+        <input type="date" ref={(input) => this.date = input}
         />
         <input type="submit" value="Search" />
       </form>
