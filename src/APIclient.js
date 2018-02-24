@@ -1,9 +1,10 @@
 export default {
   // Returns a promise with the results of flights
-  getFlights(flightData) {
+  getFlights(flightData, page = 0) {
     let date = new Date(flightData.date)
     date = `${date.getDate()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
-    const query = `flyFrom=${flightData.from}&to=${flightData.to}&dateFrom=${date}&dateTo=${date}`;
+    const offset = page * 5;
+    const query = `flyFrom=${flightData.from}&to=${flightData.to}&dateFrom=${date}&dateTo=${date}&limit=5&offset=${offset}`;
     const url = 'https://api.skypicker.com/flights?' +  query;
     const apiResults = fetch(url)
       .then((response) => {
