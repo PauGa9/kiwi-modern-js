@@ -1,31 +1,23 @@
 import React from 'react';
 import Form from './Form.jsx';
-import FlightsCollection from './FlightsCollection.jsx';
-import APIclient from '../APIclient.js';
+import FlightsCollectionContainer from './FlightsCollectionContainer.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      flights: []
-    }
-    this.searchFlights = this.searchFlights.bind(this);
+    this.state = { flightData: {} };
+    this.handleSearchFlights = this.handleSearchFlights.bind(this);
   }
 
-  searchFlights(flightData) {
-    APIclient.getFlights(flightData)
-      .then(results => {
-        this.setState({
-          flights: results
-        });
-      });
+  handleSearchFlights(flightData) {
+    this.setState({ flightData: flightData });
   }
 
   render() {
     return (
       <div>
-        <Form handleSearchFlights={this.searchFlights}/>
-        <FlightsCollection flights={this.state.flights} />
+        <Form handleSearchFlights={this.handleSearchFlights} />
+        <FlightsCollectionContainer flightData={this.state.flightData} />
       </div>
     );
   }
