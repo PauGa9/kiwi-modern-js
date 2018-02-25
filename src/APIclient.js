@@ -11,7 +11,7 @@ export default {
         return response.json();
       })
       .then(jsonResponse => {
-        return jsonResponse.data;
+        return {data: jsonResponse.data, results: jsonResponse._results};
       });
 
     return apiResults;
